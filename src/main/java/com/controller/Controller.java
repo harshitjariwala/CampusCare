@@ -87,4 +87,32 @@ public class Controller {
             }
         }
 	}
+	
+	@GetMapping("adduser")
+	public String addUser() {
+		return "AddUser";
+	}
+	
+	@PostMapping("registeruser")
+	public String registerUser(@Validated UserBean user, BindingResult result, Model model) {
+		if(!user.getPassword().equals(user.getConfirmPassword())) {
+			result.rejectValue("confirmPassword","error.confirmPassword","Password and Confirm Password Must be Same");
+		}
+		
+		if(result.hasErrors()) {
+			model.addAttribute("result",result);
+			model.addAttribute("user",user);
+			return "AddUser";
+		}
+		
+		try {
+			stmt.queryForObject("SELECT * FROM USERS WHERE email = ?", new BeanPropertyRowMapper<>(UserBean.class), user.getEmail());
+			model.addAttribute("signupError","<div class='alert alert-danger text-center'>Email Id Already exists</div>");
+			model.addAttribute("user",user);
+			return "AddUser";
+		} catch (Exception e) {
+			stmt.update("INSERT INTO USERS (firstName, lastName, email, password, role, createdAt) VALUES (?, ?, ?, ?, ?, ?)",user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getRole() ,LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+			return "AdminHome";
+		}
+	}
 }
