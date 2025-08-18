@@ -141,7 +141,7 @@
                     </div>
                     <h3>List Admins</h3>
                     <p class="text-muted mb-4">View and manage administrator accounts</p>
-                    <a href="/admin/list-admins" class="btn btn-admin">
+                    <a href="listadmins" class="btn btn-admin">
                         <i class="fas fa-arrow-right me-2"></i> View Admins
                     </a>
                 </div>

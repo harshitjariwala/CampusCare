@@ -13,6 +13,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.bean.UserBean;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -127,5 +129,12 @@ public class Controller {
 		List<UserBean> users = stmt.query("select * from users where role = ?",new BeanPropertyRowMapper<>(UserBean.class), new Object[] {"Student"});
 		model.addAttribute("users",users);
 		return "ListStudents";
+	}
+	
+	@GetMapping("listadmins")
+	public String listAdmins(Model model) {
+		List<UserBean> users = stmt.query("select * from users where role = ?", new BeanPropertyRowMapper<>(UserBean.class), new Object[] {"Admin"});
+		model.addAttribute("users",users);
+		return "ListAdmins";
 	}
 }
