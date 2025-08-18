@@ -282,13 +282,13 @@
                             <h2 class="fw-bold text-gradient">Register New User</h2>
                             <p class="text-muted">Create a new admin or student account</p>
                         </div>
-                        
+                        ${signupError}
                         <form id="registerForm" class="needs-validation" action="registeruser" method="post">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-floating">
                                         <input type="text" class="form-control ${result.hasFieldErrors('firstName') ? 'is-invalid' : ''}" 
-                                               id="firstName" name="firstName">
+                                               id="firstName" name="firstName" value="${user.firstName}">
                                         <label for="firstName">First Name</label>
                                     </div>
                                     <c:if test="${result.hasFieldErrors('firstName')}">
@@ -300,7 +300,7 @@
                                 <div class="col-md-6 mb-3">
                                     <div class="form-floating">
                                         <input type="text" class="form-control ${result.hasFieldErrors('lastName') ? 'is-invalid' : ''}" 
-                                               id="lastName" name="lastName">
+                                               id="lastName" name="lastName" value="${user.lastName}">
                                         <label for="lastName">Last Name</label>
                                     </div>
                                     <c:if test="${result.hasFieldErrors('lastName')}">
@@ -314,7 +314,7 @@
                             <div class="mb-3">
                                 <div class="form-floating">
                                     <input type="email" class="form-control ${result.hasFieldErrors('email') ? 'is-invalid' : ''}" 
-                                           id="email" name="email">
+                                           id="email" name="email" value="${user.email}">
                                     <label for="email">Email Address</label>
                                 </div>
                                 <c:if test="${result.hasFieldErrors('email')}">
@@ -327,7 +327,7 @@
                             <div class="mb-3">
                                 <div class="form-floating password-input-group">
                                     <input type="password" class="form-control ${result.hasFieldErrors('password') ? 'is-invalid' : ''}" 
-                                           id="password" name="password">
+                                           id="password" name="password" value="${user.password}">
                                     <label for="password">Password</label>
                                     <button type="button" class="password-toggle-btn" id="togglePassword">
                                         <i class="far fa-eye"></i>
@@ -343,7 +343,7 @@
                             <div class="mb-3">
                                 <div class="form-floating password-input-group">
                                     <input type="password" class="form-control ${result.hasFieldErrors('confirmPassword') ? 'is-invalid' : ''}" 
-                                           id="confirmPassword" name="confirmPassword">
+                                           id="confirmPassword" name="confirmPassword" value="${user.confirmPassword}">
                                     <label for="confirmPassword">Confirm Password</label>
                                     <button type="button" class="password-toggle-btn" id="toggleConfirmPassword">
                                         <i class="far fa-eye"></i>
@@ -359,12 +359,12 @@
                             <div class="mb-4">
                                 <label class="form-label">Select Role</label>
                                 <div class="role-radio-group">
-                                    <input type="radio" id="roleAdmin" name="role" value="Admin" class="role-radio">
+                                    <input type="radio" id="roleAdmin" name="role" value="Admin" class="role-radio" ${user.role.equals("Admin")?"checked":""}>
                                     <label for="roleAdmin" class="role-label">
                                         <i class="fas fa-user-shield"></i> Admin
                                     </label>
                                     
-                                    <input type="radio" id="roleStudent" name="role" value="Student" class="role-radio">
+                                    <input type="radio" id="roleStudent" name="role" value="Student" class="role-radio" ${user.role.equals("Student")?"checked":""}>
                                     <label for="roleStudent" class="role-label">
                                         <i class="fas fa-user-graduate"></i> Student
                                     </label>
