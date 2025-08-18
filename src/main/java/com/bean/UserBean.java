@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 public class UserBean {
+	private Integer userId;
+	
 	@NotBlank(message = "Please Enter First Name")
 	@Pattern(regexp = "[a-zA-Z]+", message = "Please Enter Valid First Name")
 	private String firstName;
@@ -27,6 +29,21 @@ public class UserBean {
 	
 	private String role;
 	
+	private String createdAt;
+	
+	
+	public Integer getUserId() {
+		return userId;
+	}
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+	public String getCreatedAt() {
+		return createdAt;
+	}
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
+	}
 	public String getRole() {
 		return role;
 	}

@@ -127,7 +127,7 @@
                     </div>
                     <h3>List Students</h3>
                     <p class="text-muted mb-4">View and manage all student accounts</p>
-                    <a href="/admin/list-students" class="btn btn-admin">
+                    <a href="liststudents" class="btn btn-admin">
                         <i class="fas fa-arrow-right me-2"></i> View Students
                     </a>
                 </div>

@@ -2,6 +2,7 @@ package com.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -73,7 +74,7 @@ public class Controller {
                 UserBean newUser = stmt.queryForObject("SELECT * FROM users WHERE email = ? AND password = ?",new BeanPropertyRowMapper<>(UserBean.class),user.getEmail(), user.getPassword());
                 model.addAttribute("user", newUser);
                 if(newUser.getRole().equals("Admin")) {
-                	return "AdminHome";
+                	return "redirect:/adminhome";
                 }
                 else {
                 	return "StudentHome";
@@ -86,6 +87,11 @@ public class Controller {
                 return "Login";
             }
         }
+	}
+	
+	@GetMapping("adminhome")
+	public String adminHome() {
+		return "AdminHome";
 	}
 	
 	@GetMapping("adduser")
@@ -112,7 +118,14 @@ public class Controller {
 			return "AddUser";
 		} catch (Exception e) {
 			stmt.update("INSERT INTO USERS (firstName, lastName, email, password, role, createdAt) VALUES (?, ?, ?, ?, ?, ?)",user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getRole() ,LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-			return "AdminHome";
+			return "redirect:/adminhome";
 		}
+	}
+	
+	@GetMapping("liststudents")
+	public String listStudents(Model model) {
+		List<UserBean> users = stmt.query("select * from users where role = ?",new BeanPropertyRowMapper<>(UserBean.class), new Object[] {"Student"});
+		model.addAttribute("users",users);
+		return "ListStudents";
 	}
 }
